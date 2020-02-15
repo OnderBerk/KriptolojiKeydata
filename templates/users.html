@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+    <title>KEYDATA CRYPTO</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+    </style>
+    <script src="static/js/forge/forge.min.js"></script>
+    <script>
+    function magic(input) {
+    input = input.replace(/&amp;/g, '&');
+    input = input.replace(/&lt;/g, '<');
+    input = input.replace(/&gt;/g, '>');
+    input = input.replace(/&#34;/g, '"');
+    input = input.replace(/&#39;/g, "'");
+    return input;
+}
+    </script>
+</head>
+<body>
+<script>
+
+
+    document.write("<table id='users' style='width:100%'");
+    document.write("<tr>");  
+    document.write("<th>");
+    document.write("Name");
+    document.write("</th>");
+    document.write("<th>");
+    document.write("Surname");
+    document.write("</th>");
+    document.write("<th>");
+    document.write("Username");
+    document.write("</th>");
+    document.write("<th>");
+    document.write("TC No");
+    document.write("</th>");
+    document.write("<th>");
+    document.write("Password");
+    document.write("</th>");
+    document.write("</tr>");
+   
+    
+    {% for i in data %} 
+    document.write("<tr>"); 
+    var privateKey = forge.pki.privateKeyFromPem("{{i.private_key}}");
+    var strname="{{i.name}}";
+    var sonname=strname.substr(1);
+    var sonnname=magic(sonname);
+    var vallasonname=sonnname.substr(1);
+    var ciddisonname=vallasonname.substr(0,vallasonname.length-1);
+    
+    var strsurname="{{i.surname}}";
+    var sonsurname=strsurname.substr(1);
+    var sonnsurname=magic(sonsurname);
+    var vallasonsurname=sonnsurname.substr(1);
+    var ciddisonsurname=vallasonsurname.substr(0,vallasonsurname.length-1);
+    
+    var strusername="{{i.username}}";
+    var sonusername=strusername.substr(1);
+    var sonnusername=magic(sonusername);
+    var vallasonusername=sonnusername.substr(1);
+    var ciddisonusername=vallasonusername.substr(0,vallasonusername.length-1);
+    
+    var strtc="{{i.tc_no}}";
+    var sontc=strtc.substr(1);
+    var sonntc=magic(sontc);
+    var vallasontc=sonntc.substr(1);
+    var ciddisontc=vallasontc.substr(0,vallasontc.length-1);
+    
+    var strps="{{i.password}}";
+    var sonps=strps.substr(1);
+    var sonnps=magic(sonps);
+    var vallasonps=sonnps.substr(1);
+    var ciddisonps=vallasonps.substr(0,vallasonps.length-1);
+    
+    document.write("<td>");
+    document.write(privateKey.decrypt(ciddisonname, 'RSA-OAEP'));
+    document.write("</td>");
+    document.write("<td>");
+    document.write(privateKey.decrypt(ciddisonsurname, 'RSA-OAEP'));
+    document.write("</td>");
+    document.write("<td>");
+    document.write(privateKey.decrypt(ciddisonusername, 'RSA-OAEP'));
+    document.write("</td>");
+    document.write("<td>");
+    document.write(privateKey.decrypt(ciddisontc, 'RSA-OAEP'));
+    document.write("</td>");
+    document.write("<td>");
+    document.write(privateKey.decrypt(ciddisonps, 'RSA-OAEP'));
+    document.write("</td>");
+    document.write("</tr>");
+    {% endfor %}
+    
+    document.write("</table>");
+   </script>
+</body>
+</html>

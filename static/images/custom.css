@@ -1,0 +1,26 @@
+#ipython_notebook img{                                                                                        
+        display:block;
+        background: url(logo.png) no-repeat;
+        background-size: contain;
+        width: 33px;
+        height: 33px;
+        padding-left: 33px;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    #header-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    span#login_widget {
+        flex-grow: 1;
+        order: 4;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    span#save_widget {
+        flex-grow: 40;
+    }
